@@ -97,20 +97,6 @@
       "id": "3f38"
     },
     {
-      "id": "2d91",
-      "DT_QLTS_TS_Chon": false,
-      "DT_QLTS_TS_MaTaiSan": "gadf",
-      "DT_QLTS_TS_TenTaiSan": "dfsh",
-      "DT_QLTS_TS_NhapKho_DonViTinh": "had",
-      "DT_QLTS_TS_NhomTaiSan": 34,
-      "DT_QLTS_TS_LoaiTaiSan": "fgda",
-      "DT_QLTS_TS_ThuongHieu": "fdgav",
-      "DT_QLTS_TS_NgayDuaVaoSuDung": "2025-01-16",
-      "DT_QLTS_TS_NhapKho_MaNhanSu": "fa",
-      "DT_QLTS_TS_NhapKho_TenKho_Ten": "afd",
-      "DT_QLTS_TS_SerialNumber": "fad"
-    },
-    {
       "id": "752d",
       "DT_QLTS_TS_Chon": false,
       "DT_QLTS_TS_MaTaiSan": "45246",
@@ -126,7 +112,7 @@
     },
     {
       "DT_QLTS_TS_Chon": false,
-      "DT_QLTS_TS_MaTaiSan": "5624",
+      "DT_QLTS_TS_MaTaiSan": "56244",
       "DT_QLTS_TS_TenTaiSan": "345fdsh",
       "DT_QLTS_TS_NhapKho_DonViTinh": "sfdngf",
       "DT_QLTS_TS_NhomTaiSan": 54236,
@@ -285,6 +271,20 @@
       "DT_QLTS_TS_NhapKho_MaNhanSu": "fd",
       "DT_QLTS_TS_NhapKho_TenKho_Ten": "fd",
       "DT_QLTS_TS_SerialNumber": "df"
+    },
+    {
+      "id": "3f12",
+      "DT_QLTS_TS_Chon": false,
+      "DT_QLTS_TS_MaTaiSan": "325264",
+      "DT_QLTS_TS_TenTaiSan": "fgsfgn",
+      "DT_QLTS_TS_NhapKho_DonViTinh": "4325",
+      "DT_QLTS_TS_NhomTaiSan": 543,
+      "DT_QLTS_TS_LoaiTaiSan": "1543",
+      "DT_QLTS_TS_ThuongHieu": "5143",
+      "DT_QLTS_TS_NgayDuaVaoSuDung": "2025-01-08",
+      "DT_QLTS_TS_NhapKho_MaNhanSu": "51436",
+      "DT_QLTS_TS_NhapKho_TenKho_Ten": "534",
+      "DT_QLTS_TS_SerialNumber": "163"
     }
   ]
 }

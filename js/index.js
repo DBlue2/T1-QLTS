@@ -10,6 +10,7 @@ async function loadAssets() {
   const response = await fetch(apiURL);
   assets = await response.json();
   renderTable();
+  changePageSize();
 }
 
 // Hàm phân trang
@@ -72,8 +73,8 @@ function renderPagination() {
 
 // Hàm thay đổi số bản ghi hiển thị trên mỗi trang
 function changePageSize(newSize) {
-  pageSize = parseInt(newSize, 10) || 5; // Mặc định là 5 nếu không hợp lệ
-  currentPage = 1; // Reset về trang đầu tiên
+  pageSize = parseInt(newSize, 10) || 5;
+  currentPage = 1;
   renderTable();
 }
 
@@ -153,12 +154,14 @@ async function saveAsset(event) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(assetData),
     });
+    showToast("Cập nhật tài sản thành công!", "success");
   } else {
     await fetch(apiURL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(assetData),
     });
+    showToast("Thêm mới tài sản thành công!", "success");
   }
 
   loadAssets();
@@ -166,16 +169,38 @@ async function saveAsset(event) {
   modal.hide();
 }
 
-// Hàm xóa tài sản
 async function deleteAsset(assetId) {
   if (confirm("Bạn có chắc chắn muốn xóa tài sản này?")) {
     await fetch(`${apiURL}/${assetId}`, { method: "DELETE" });
+    showToast("Xóa tài sản thành công!", "success");
     loadAssets();
   }
 }
 
-// Gắn sự kiện
 document.getElementById("addAssetForm").addEventListener("submit", saveAsset);
 
-// Tải danh sách tài sản khi trang được tải
 loadAssets();
+
+//
+function showToast(message, type = "success") {
+  const toastContainer = document.getElementById("toast-container");
+
+  const toast = document.createElement("div");
+  toast.className = `toast align-items-center text-bg-${type} border-0 show`;
+  toast.style.minWidth = "200px";
+  toast.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">
+        ${message}
+      </div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  `;
+
+  toastContainer.appendChild(toast);
+
+  // Tự động xóa thông báo sau 3 giây
+  setTimeout(() => {
+    toast.remove();
+  }, 2000);
+}
