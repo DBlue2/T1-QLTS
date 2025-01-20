@@ -6,12 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quản lý Tài sản</title>
   <link rel="stylesheet" href="css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    />
 </head>
 
 <body>
   <div class="container mt-4">
     <h2 class="mb-4">Danh sách tài sản</h2>
+    <hr>
     <table class="table table-bordered table-hover table-striped">
       <thead class="table-primary">
         <tr>
@@ -36,7 +40,6 @@
       Thêm mới tài sản
     </button>
 
-    <div id="pagination" class="d-flex justify-content-center mt-3"></div>
     <div class="d-flex justify-content-end align-items-center mb-3">
       <label for="pageSizeInput" class="form-label me-2">Số bản ghi mỗi trang:</label>
       <select id="pageSizeInput" class="form-select form-select-sm" onchange="changePageSize(this.value)"
@@ -47,6 +50,8 @@
         <option value="20">20</option>
       </select>
     </div>
+    <div id="pagination" class="d-flex justify-content-center mt-3"></div>
+    
   </div>
 
   <!-- Modal -->
@@ -62,6 +67,30 @@
         <div class="modal-body">
           <form id="addAssetForm">
             <div class="mb-3">
+              <label for="assetPBQL" class="form-label">Phòng ban quản lý</label>
+              <input type="text" class="form-control" id="assetPBQL" />
+            </div>
+            <div class="mb-3">
+              <label for="assetGroup" class="form-label">Nhóm tài sản</label>
+              <input type="number" class="form-control" id="assetGroup" />
+            </div>
+            <div class="mb-3">
+              <label for="assetType" class="form-label">Loại tài sản</label>
+              <select id="assetType" class="form-select" >
+                <option value="Hữu hình">Hữu hình</option>
+                <option value="Vô hình">Vô hình</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="currentRoom" class="form-label">Phòng hiện tại</label>
+              <input type="text" class="form-control" id="currentRoom" />
+            </div>
+
+            <div class="mb-3">
+              <label for="assetRoom" class="form-label">Tên phòng hiện tại</label>
+              <input type="text" class="form-control" id="assetRoom" />
+            </div>
+            <div class="mb-3">
               <label for="assetCode" class="form-label">Mã tài sản</label>
               <input type="text" class="form-control" id="assetCode" required />
             </div>
@@ -69,18 +98,7 @@
               <label for="assetName" class="form-label">Tên tài sản</label>
               <input type="text" class="form-control" id="assetName" required />
             </div>
-            <div class="mb-3">
-              <label for="unit" class="form-label">Đơn vị tính</label>
-              <input type="text" class="form-control" id="unit" required />
-            </div>
-            <div class="mb-3">
-              <label for="assetGroup" class="form-label">Nhóm tài sản</label>
-              <input type="number" class="form-control" id="assetGroup" required />
-            </div>
-            <div class="mb-3">
-              <label for="assetType" class="form-label">Loại tài sản</label>
-              <input type="text" class="form-control" id="assetType" required />
-            </div>
+            
             <div class="mb-3">
               <label for="brand" class="form-label">Thương hiệu</label>
               <input type="text" class="form-control" id="brand" required />
@@ -101,6 +119,10 @@
               <label for="serialNumber" class="form-label">Serial Number</label>
               <input type="text" class="form-control" id="serialNumber" required />
             </div>
+            <div class="mb-3">
+              <label for="unit" class="form-label">Đơn vị tính</label>
+              <input type="text" class="form-control" id="unit" required />
+            </div>
             <button type="submit" class="btn btn-primary">Lưu</button>
           </form>
         </div>
@@ -108,11 +130,9 @@
     </div>
   </div>
 
-  <div id="toast-container" class="position-fixed top-0 end-0 p-3" style="z-index: 1055"></div>
-
   <script src="js/bootstrap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   <script src="js/index.js"></script>
 </body>
 

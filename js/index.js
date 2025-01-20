@@ -41,8 +41,8 @@ function renderTable() {
         <td>${asset.DT_QLTS_TS_NhapKho_MaNhanSu}</td>
         <td>${asset.DT_QLTS_TS_NhapKho_TenKho_Ten}</td>
         <td>
-          <button class="btn btn-warning btn-sm" onclick="openEditForm('${asset.id}')">Sửa</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteAsset('${asset.id}')">Xóa</button>
+          <button class="btn btn-warning btn-sm m-1" onclick="openEditForm('${asset.id}')">Sửa</button>
+          <button class="btn btn-danger btn-sm m-1" onclick="deleteAsset('${asset.id}')">Xóa</button>
         </td>
       </tr>
     `;
@@ -119,7 +119,7 @@ async function saveAsset(event) {
 
   const assetData = {
     DT_QLTS_TS_Chon: false,
-    DT_QLTS_TS_MaTaiSan: document.getElementById("assetCode").value,
+    DT_QLTS_TS_MaTaiSan: parseInt(document.getElementById("assetCode").value),
     DT_QLTS_TS_TenTaiSan: document.getElementById("assetName").value,
     DT_QLTS_TS_NhapKho_DonViTinh: document.getElementById("unit").value,
     DT_QLTS_TS_NhomTaiSan: parseInt(document.getElementById("assetGroup").value),
@@ -154,14 +154,21 @@ async function saveAsset(event) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(assetData),
     });
-    showToast("Cập nhật tài sản thành công!", "success");
+    toastr.success("Cập nhật tài sản thành công!", "Success!");
   } else {
+    const response = await fetch(apiURL);
+    assetList = await response.json(); 
+    
+    const lastAsset = assetList[assetList.length - 1];
+    const newID = parseInt(lastAsset.id)+1;
+    assetData.id = newID.toString;
+
     await fetch(apiURL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(assetData),
     });
-    showToast("Thêm mới tài sản thành công!", "success");
+    toastr.success("Thêm mới tài sản thành công!", "Success!");
   }
 
   loadAssets();
@@ -172,8 +179,10 @@ async function saveAsset(event) {
 async function deleteAsset(assetId) {
   if (confirm("Bạn có chắc chắn muốn xóa tài sản này?")) {
     await fetch(`${apiURL}/${assetId}`, { method: "DELETE" });
-    showToast("Xóa tài sản thành công!", "success");
+    toastr.success("Xóa tài sản thành công!", "Success!");
     loadAssets();
+  }else{
+    toastr.error("Xóa tài sản thất bại!", "Failed!");
   }
 }
 
@@ -181,26 +190,3 @@ document.getElementById("addAssetForm").addEventListener("submit", saveAsset);
 
 loadAssets();
 
-//
-function showToast(message, type = "success") {
-  const toastContainer = document.getElementById("toast-container");
-
-  const toast = document.createElement("div");
-  toast.className = `toast align-items-center text-bg-${type} border-0 show`;
-  toast.style.minWidth = "200px";
-  toast.innerHTML = `
-    <div class="d-flex">
-      <div class="toast-body">
-        ${message}
-      </div>
-      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-  `;
-
-  toastContainer.appendChild(toast);
-
-  // Tự động xóa thông báo sau 3 giây
-  setTimeout(() => {
-    toast.remove();
-  }, 2000);
-}
