@@ -1,139 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quản lý Tài sản</title>
-  <link rel="stylesheet" href="css/bootstrap.min.css" />
-  <link
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý Tài sản</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
     />
-</head>
+  </head>
 
-<body>
-  <div class="container mt-4">
-    <h2 class="mb-4">Danh sách tài sản</h2>
-    <hr>
-    <table class="table table-bordered table-hover table-striped">
-      <thead class="table-primary">
-        <tr>
-          <th>STT</th>
-          <th>Chọn</th>
-          <th>Mã tài sản</th>
-          <th>Tên tài sản</th>
-          <th>Đơn vị tính</th>
-          <th>Nhóm tài sản</th>
-          <th>Loại tài sản</th>
-          <th>Thương hiệu</th>
-          <th>Ngày đưa vào sử dụng</th>
-          <th>Mã người nhập</th>
-          <th>Tên người nhập</th>
-          <th>Thao tác</th>
-        </tr>
-      </thead>
-      <tbody id="table-body"></tbody>
-    </table>
+  <body>
+    <div class="container mt-4">
+      <h2 class="mb-4">Danh sách tài sản</h2>
+      <hr />
+      <table class="table table-bordered table-hover table-striped">
+        <thead class="table-primary text-center align-middle">
+          <tr>
+            <th>STT</th>
+            <th>Chọn</th>
+            <th>Mã tài sản</th>
+            <th>Tên tài sản</th>
+            <th>Đơn vị tính</th>
+            <th>Nhóm tài sản</th>
+            <th>Loại tài sản</th>
+            <th>Thương hiệu</th>
+            <th>Ngày đưa vào sử dụng</th>
+            <th>Mã người nhập</th>
+            <th>Tên người nhập</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
 
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAssetModal" onclick="openAddForm()">
-      Thêm mới tài sản
-    </button>
+      <button
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#addAssetModal"
+        onclick="openAddForm()"
+      >
+        Thêm mới tài sản
+      </button>
 
-    <div class="d-flex justify-content-end align-items-center mb-3">
-      <label for="pageSizeInput" class="form-label me-2">Số bản ghi mỗi trang:</label>
-      <select id="pageSizeInput" class="form-select form-select-sm" onchange="changePageSize(this.value)"
-        style="width: auto">
-        <option value="5" selected>5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-        <option value="20">20</option>
-      </select>
+      <div class="d-flex justify-content-end align-items-center mb-3">
+        <label for="pageSizeInput" class="form-label me-2"
+          >Số bản ghi mỗi trang:</label
+        >
+        <select
+          id="pageSizeInput"
+          class="form-select form-select-sm"
+          onchange="changePageSize(this.value)"
+          style="width: auto"
+        >
+          <option value="5" selected>5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+      <div id="pagination" class="d-flex justify-content-center mt-3"></div>
     </div>
-    <div id="pagination" class="d-flex justify-content-center mt-3"></div>
-    
-  </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="addAssetModal" tabindex="-1" aria-labelledby="addAssetModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addAssetModalLabel">
-            Thêm mới tài sản
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="addAssetForm">
-            <div class="mb-3">
-              <label for="assetPBQL" class="form-label">Phòng ban quản lý</label>
-              <input type="text" class="form-control" id="assetPBQL" />
-            </div>
-            <div class="mb-3">
-              <label for="assetGroup" class="form-label">Nhóm tài sản</label>
-              <input type="number" class="form-control" id="assetGroup" />
-            </div>
-            <div class="mb-3">
-              <label for="assetType" class="form-label">Loại tài sản</label>
-              <select id="assetType" class="form-select" >
-                <option value="Hữu hình">Hữu hình</option>
-                <option value="Vô hình">Vô hình</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="currentRoom" class="form-label">Phòng hiện tại</label>
-              <input type="text" class="form-control" id="currentRoom" />
-            </div>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="addAssetModal"
+      tabindex="-1"
+      aria-labelledby="addAssetModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addAssetModalLabel">
+              Thêm mới tài sản
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="addAssetForm">
+              <div class="mb-3">
+                <label for="assetPBQL" class="form-label"
+                  >Phòng ban quản lý</label
+                >
+                <input type="number" class="form-control" id="assetPBQL" />
+              </div>
+              <div class="mb-3">
+                <label for="assetGroup" class="form-label">Nhóm tài sản</label>
+                <input type="number" class="form-control" id="assetGroup" />
+              </div>
+              <div class="mb-3">
+                <label for="assetType" class="form-label">Loại tài sản</label>
+                <select id="assetType" class="form-select">
+                  <option value="Hữu hình">Hữu hình</option>
+                  <option value="Vô hình">Vô hình</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="currentRoom" class="form-label"
+                  >Phòng hiện tại</label
+                >
+                <input type="number" class="form-control" id="currentRoom" />
+              </div>
 
-            <div class="mb-3">
-              <label for="assetRoom" class="form-label">Tên phòng hiện tại</label>
-              <input type="text" class="form-control" id="assetRoom" />
-            </div>
-            <div class="mb-3">
-              <label for="assetCode" class="form-label">Mã tài sản</label>
-              <input type="text" class="form-control" id="assetCode" required />
-            </div>
-            <div class="mb-3">
-              <label for="assetName" class="form-label">Tên tài sản</label>
-              <input type="text" class="form-control" id="assetName" required />
-            </div>
-            
-            <div class="mb-3">
-              <label for="brand" class="form-label">Thương hiệu</label>
-              <input type="text" class="form-control" id="brand" required />
-            </div>
-            <div class="mb-3">
-              <label for="useDate" class="form-label">Ngày đưa vào sử dụng</label>
-              <input type="date" class="form-control" id="useDate" required />
-            </div>
-            <div class="mb-3">
-              <label for="importCode" class="form-label">Mã người nhập</label>
-              <input type="text" class="form-control" id="importCode" required />
-            </div>
-            <div class="mb-3">
-              <label for="importName" class="form-label">Tên người nhập</label>
-              <input type="text" class="form-control" id="importName" required />
-            </div>
-            <div class="mb-3">
-              <label for="serialNumber" class="form-label">Serial Number</label>
-              <input type="text" class="form-control" id="serialNumber" required />
-            </div>
-            <div class="mb-3">
-              <label for="unit" class="form-label">Đơn vị tính</label>
-              <input type="text" class="form-control" id="unit" required />
-            </div>
-            <button type="submit" class="btn btn-primary">Lưu</button>
-          </form>
+              <div class="mb-3">
+                <label for="assetRoom" class="form-label"
+                  >Tên phòng hiện tại</label
+                >
+                <input type="text" class="form-control" id="assetRoom" />
+              </div>
+              <div class="mb-3">
+                <label for="assetCode" class="form-label">Mã tài sản <span style="color: red;">*</span></label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="assetCode"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="assetName" class="form-label">Tên tài sản <span style="color: red;">*</span></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="assetName"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="assetCodeGroup" class="form-label"
+                  >Mã nhóm thiết bị đi kèm</label
+                >
+                <input type="text" class="form-control" id="assetCodeGroup" />
+              </div>
+              <div class="mb-3">
+                <label for="assetOrigin" class="form-label">Nguồn gốc</label>
+                <input type="number" class="form-control" id="assetOrigin"/>
+              </div>
+              <div class="mb-3">
+                <label for="assetStatus" class="form-label">Tình trạng</label>
+                <select id="assetStatus" class="form-select">
+                  <option value="Hoạt động bình thường">
+                    Hoạt động bình thường
+                  </option>
+                  <option value="Hoạt động bất thường">
+                    Hoạt động bất thường
+                  </option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="assetDescription" class="form-label">Mô tả</label>
+                <textarea class="form-control" id="assetDescription"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="assetModel" class="form-label">Model</label>
+                <input type="text" class="form-control" id="assetModel" />
+              </div>
+              <div class="mb-3">
+                <label for="brand" class="form-label">Thương hiệu</label>
+                <input type="text" class="form-control" id="brand" />
+              </div>
+              <div class="mb-3">
+                <label for="manufactureYear" class="form-label"
+                  >Năm sản xuất</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="manufactureYear"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="useDate" class="form-label"
+                  >Ngày đưa vào sử dụng</label
+                >
+                <input type="date" class="form-control" id="useDate" />
+              </div>
+              <div class="mb-3">
+                <label for="assetFrom" class="form-label">Xuất xứ</label>
+                <input type="text" class="form-control" id="assetFrom" />
+              </div>
+              <div class="mb-3">
+                <label for="serialNumber" class="form-label"
+                  >Serial Number <span style="color: red;">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="serialNumber"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="assetLength" class="form-label"
+                  >Kích thước (Dài x Rộng x Cao)</label
+                >
+                <div class="d-flex gap-2">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="assetLength"
+                    placeholder="Dài"
+                  />
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="assetWidth"
+                    placeholder="Rộng"
+                  />
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="assetHeight"
+                    placeholder="Cao"
+                  />
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="fileAttachment" class="form-label"
+                  >Giấy tờ kèm theo</label
+                >
+                <input type="file" class="form-control" id="fileAttachment" />
+              </div>
+              <div class="mb-3">
+                <label for="assetNote" class="form-label">Ghi chú</label>
+                <textarea class="form-control" id="assetNote"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="importCode" class="form-label">Mã người nhập</label>
+                <input type="text" class="form-control" id="importCode" />
+              </div>
+              <div class="mb-3">
+                <label for="importName" class="form-label"
+                  >Tên người nhập</label
+                >
+                <input type="text" class="form-control" id="importName" />
+              </div>
+              <div class="mb-3">
+                <label for="storageCode" class="form-label">Mã kho</label>
+                <input type="text" class="form-control" id="storageCode" />
+              </div>
+              <div class="mb-3">
+                <label for="storageName" class="form-label">Tên kho</label>
+                <input type="text" class="form-control" id="storageName" />
+              </div>
+              <div class="mb-3">
+                <label for="unit" class="form-label">Đơn vị tính</label>
+                <input type="text" class="form-control" id="unit" />
+              </div>
+              <button type="submit" class="btn btn-primary">Lưu</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script src="js/bootstrap.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-  <script src="js/index.js"></script>
-</body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
+    <script src="js/index.js"></script>
+  </body>
 </html>
